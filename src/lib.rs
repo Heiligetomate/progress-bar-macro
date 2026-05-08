@@ -70,7 +70,7 @@ pub fn derive_progress_bar(input: TokenStream) -> TokenStream {
     quote! {
         impl #struct_name {
             pub fn get_the_floaaaat(&self) -> f64 {
-                self.#labeled_ident / #label_value
+                self.#labeled_ident as f64 / #label_value as f64
             }
         }
     }
