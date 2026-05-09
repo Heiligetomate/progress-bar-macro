@@ -96,6 +96,9 @@ pub fn derive_progress_bar(input: TokenStream) -> TokenStream {
     };
 
     quote! {
+        use progress_bar::bar::MacroOutputBar;
+        use progress_bar::bar::Percentage;
+        use progress_bar::bar::ProgressBar;
         impl #struct_name {
             pub fn percentage(&self) -> std::io::Result<Percentage> {
                 Percentage::calc(self.#labeled_ident as f64, #label_value as f64)
@@ -103,6 +106,7 @@ pub fn derive_progress_bar(input: TokenStream) -> TokenStream {
         }
         impl MacroOutputBar for #struct_name {
             fn output(&mut self, display_percentage: bool) -> std::io::Result<()> {
+
                 let percentage = self.percentage()?;
                 self.#progress_bar_ident.output(percentage, display_percentage)
             }
